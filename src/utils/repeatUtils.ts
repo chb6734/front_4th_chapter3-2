@@ -1,4 +1,5 @@
 import { EventForm, Event } from '../types';
+import { formatDate } from './dateUtils';
 
 export function generateRepeatingEvents(event: Event): EventForm[] {
   const { repeat } = event;
@@ -25,12 +26,14 @@ export function getDailyRepeatingEvents(event: Event): EventForm[] {
   const repeatingEvents: EventForm[] = [];
 
   for (let i = 0; i < interval; i++) {
-    if (convertedDate.toISOString() === endDate) break;
-    const repeatingDate = new Date(date);
+    const repeatingDate = convertedDate;
+    console.log(repeatingDate);
     repeatingEvents.push({
       ...event,
-      date: repeatingDate.toISOString(),
+      date: formatDate(repeatingDate),
     });
+
+    if (convertedDate.toISOString() === endDate) break;
     convertedDate.setDate(convertedDate.getDate() + 1);
   }
 

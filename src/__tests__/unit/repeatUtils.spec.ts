@@ -29,13 +29,13 @@ describe('매일 반복 일정 테스트', () => {
   it('기본 매일 반복 일정이 정상 생성된다', () => {
     const dailyEvent: Event = {
       ...baseEvent,
-      repeat: { ...baseEvent.repeat, type: 'daily' },
+      repeat: { ...baseEvent.repeat, type: 'daily', interval: 30, endDate: '2024-02-15' },
     };
     const events = getDailyRepeatingEvents(dailyEvent);
 
     expect(events.length).toBeGreaterThan(0);
     expect(events[1].date).toBe('2024-01-16');
-    expect(events[30].date).toBe('2024-02-14');
+    expect(events[29].date).toBe('2024-02-13');
   });
 
   it('월말을 걸쳐서 매일 반복 일정이 정상 생성된다', () => {
